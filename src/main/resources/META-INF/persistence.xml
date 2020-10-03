@@ -13,7 +13,7 @@
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="root"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/ala_tweeter?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
+                      value="jdbc:mysql://localhost:3306/tfiter?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.jdbc.time_zone" value="Europe/Warsaw"/>
             <!--     <property name="hibernate.hbm2ddl.auto" value="update"/>-->
@@ -21,4 +21,5 @@
             <property name = "hibernate.show_sql" value = "true" />
         </properties>
     </persistence-unit>
+
 </persistence>
