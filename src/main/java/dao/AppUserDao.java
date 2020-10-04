@@ -1,6 +1,6 @@
 package dao;
 
-import Models.AppUser;
+import models.AppUser;
 
 import java.util.HashSet;
 

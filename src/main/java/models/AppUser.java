@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,6 +32,8 @@ public class AppUser {
     joinColumns = {@JoinColumn(name = "follower_fk")},
     inverseJoinColumns = {@JoinColumn(name = "followed_fk")})
     private Set<AppUser> following = new HashSet<>();
+
+    private boolean isActive;
 
     public AppUser() {
     }
@@ -108,6 +110,14 @@ public class AppUser {
         this.following = following;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,6 +142,7 @@ public class AppUser {
                 ", registeredSince=" + registeredSince +
                 ", followers=" + followers +
                 ", following=" + following +
+                ", active=" + isActive +
                 '}';
     }
     public static class UserBuilder {
@@ -177,6 +188,7 @@ public class AppUser {
             user.setName(this.name);
             user.setLastName(this.lastName);
             user.setEmail(this.email);
+            user.setActive(true);
             return user;
         }
     }

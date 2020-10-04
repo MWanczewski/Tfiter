@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -17,11 +17,14 @@ public class Tweet {
     private Date publishedAt;
     private String message;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "author_fk")
-    private AppUser author;
+    private String author;
 
     public Tweet() {
+    }
+
+    public Tweet(String author,  String message) {
+        this.author = author;
+        this.message = message;
     }
 
     public Long getId() {
@@ -48,11 +51,21 @@ public class Tweet {
         this.message = message;
     }
 
-    public AppUser getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(AppUser author) {
+    public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "Tweet{" +
+                "id=" + id +
+                ", publishedAt=" + publishedAt +
+                ", message='" + message + '\'' +
+                ", author=" + author +
+                '}';
     }
 }
