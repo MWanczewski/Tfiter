@@ -16,4 +16,12 @@ public class ValidationError {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
 }

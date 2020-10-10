@@ -6,9 +6,9 @@ import errors.ValidationError;
 import models.AppUser;
 import services.TweetAppService;
 
-import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static utils.ServletUtils.*;
 
@@ -28,33 +28,37 @@ public class TweetAppServiceImpl implements TweetAppService {
     }
 
     @Override
-    public List<ValidationError> validateUser(AppUser user) {
+    public List<ValidationError> validateUser(String login, String email) {
         List<ValidationError> errors = new ArrayList<>();
-        if(isUserEmailInUse(user.getEmail())) {
+        if (isUserEmailInUse(email)) {
             errors.add(new ValidationError(EMAIL_ERROR_HEADER, EMAIL_ERROR_MESSAGE));
         }
-        if(isUserLoginInUse(user.getLogin())) {
+        if (isUserLoginInUse(login)) {
             errors.add(new ValidationError(LOGIN_ERROR_HEADER, LOGIN_IN_USE_ERROR_MESSAGE));
         }
         return errors;
     }
 
+    @Override
+    public boolean isLoginAndPasswordValid(String login, String hashPassword) {
+        Optional<AppUser> userByLogin = appUserDao.getUserByLogin(login);
+        if (userByLogin.isEmpty()) {
+            return false;
+        }
+        String passFromDB = userByLogin.get().getPassword();
+        return passFromDB.equals(hashPassword);
+    }
+
     private boolean isUserLoginInUse(String userLogin) {
-       try {
-           appUserDao.getUserByLogin(userLogin);
-           return true;
-       } catch(NoResultException e) {
-           return false;
-       }
+        return appUserDao
+                .getUserByLogin(userLogin)
+                .isPresent();
     }
 
 
     private boolean isUserEmailInUse(String userEmail) {
-        try {
-            appUserDao.getUserByLogin(userEmail);
-            return true;
-        } catch(NoResultException e) {
-            return false;
-        }
+        return appUserDao
+                .getUserByEmail(userEmail)
+                .isPresent();
     }
 }
