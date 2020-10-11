@@ -7,6 +7,7 @@ import models.AppUser;
 import services.TweetAppService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +48,26 @@ public class TweetAppServiceImpl implements TweetAppService {
         }
         String passFromDB = userByLogin.get().getPassword();
         return passFromDB.equals(hashPassword);
+    }
+
+    @Override
+    public HashSet<AppUser> getFollowedUsers(AppUser user) {
+        return appUserDao.getFollowedUsers(user);
+    }
+
+    @Override
+    public AppUser getUser(String userLogin) {
+        return appUserDao.getUserByLogin(userLogin).get();
+    }
+
+    @Override
+    public HashSet<AppUser> getNotFollowedUsers(AppUser user) {
+        return appUserDao.getNotFollowedUsers(user);
+    }
+
+    @Override
+    public HashSet<AppUser> getFollowers(AppUser user) {
+        return appUserDao.getFollowers(user);
     }
 
     private boolean isUserLoginInUse(String userLogin) {

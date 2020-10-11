@@ -83,8 +83,8 @@ public class LoginServlet extends HttpServlet {
             addCookies(resp, login, hashedPassword);
         }
         req.getSession().setAttribute(ServletUtils.USER_LOGIN, login);
-        req.getRequestDispatcher("/users.jsp").forward(req, resp);
-    }
+        req.getRequestDispatcher("users").forward(req, resp);
+}
 
     private boolean isCheckboxChecked(String remember) {
         return ServletUtils.CHECKBOX_CHECKED.equals(remember);

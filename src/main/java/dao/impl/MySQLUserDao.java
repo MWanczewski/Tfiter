@@ -7,10 +7,7 @@ import dao.AppUserDao;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MySQLUserDao extends AbstractMySQLDao implements AppUserDao {
@@ -73,9 +70,11 @@ public class MySQLUserDao extends AbstractMySQLDao implements AppUserDao {
 
     @Override
     public HashSet<AppUser> getNotFollowedUsers(AppUser loggedUser) {
+        ArrayList<AppUser> appUsers = new ArrayList<>(loggedUser.getFollowing());
+        List<String> collect = appUsers.stream().map(p -> p.getLogin()).collect(Collectors.toList());
         TypedQuery<AppUser> query = em.createQuery(
-                "select u from AppUser u where u not in :followed and u.isActive = true", AppUser.class);
-        query.setParameter("followed", new HashSet(loggedUser.getFollowing()));
+                "select u from AppUser u where u.login not in (:followed) and u.isActive = true", AppUser.class);
+        query.setParameter("followed", collect);
         return new HashSet(query.getResultList());
     }
 
