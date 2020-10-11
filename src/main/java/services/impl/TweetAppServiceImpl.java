@@ -82,4 +82,14 @@ public class TweetAppServiceImpl implements TweetAppService {
                 .getUserByEmail(userEmail)
                 .isPresent();
     }
+
+    @Override
+    public void follow(AppUser current, AppUser toFollow) {
+        appUserDao.follow(current, toFollow);
+    }
+
+    @Override
+    public void unfollow(AppUser current, AppUser toStopFollow) {
+        appUserDao.unfollow(current, toStopFollow);
+    }
 }

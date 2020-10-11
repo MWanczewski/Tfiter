@@ -20,4 +20,8 @@ public interface TweetAppService {
     HashSet<AppUser> getNotFollowedUsers(AppUser user);
 
     HashSet<AppUser> getFollowers(AppUser user);
+
+    void follow(AppUser current, AppUser toFollow);
+
+    void unfollow(AppUser current, AppUser toStopFollow);
 }
