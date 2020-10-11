@@ -4,6 +4,7 @@ import dao.AppUserDao;
 import dao.TweetDao;
 import errors.ValidationError;
 import models.AppUser;
+import models.Tweet;
 import services.TweetAppService;
 
 import java.util.ArrayList;
@@ -91,5 +92,21 @@ public class TweetAppServiceImpl implements TweetAppService {
     @Override
     public void unfollow(AppUser current, AppUser toStopFollow) {
         appUserDao.unfollow(current, toStopFollow);
+    }
+
+    @Override
+    public List<Tweet> getUserTweets(AppUser user) {
+        return tweetDao.getUserTweets(user);
+    }
+
+    @Override
+    public void addTweet(String userLogin, String message) {
+        Tweet tweet = new Tweet(userLogin, message);
+        tweetDao.save(tweet);
+    }
+
+    @Override
+    public void deleteTweet(Long tweetId) {
+        tweetDao.delete(tweetId);
     }
 }

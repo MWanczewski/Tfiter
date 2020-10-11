@@ -46,7 +46,7 @@
                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="mr-2 rounded" width="32" height="32">
                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                     <strong class="d-block text-gray-dark">
-                            ${tweet.author.login}
+                            ${tweet.author}
                         <br>
                     </strong>
                     <strong class="d-block text-gray-dark"></strong>
@@ -55,7 +55,7 @@
                     <br>
                     <b>Published at :  <fmt:formatDate value="${tweet.publishedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></b>
                 </p>
-                <c:if test="${tweet.author.login.equals(sessionScope.login)}">
+                <c:if test="${tweet.author.equals(sessionScope.login)}">
                     <a href="deleteTweet?tweetId=${tweet.id}">Delete</a>
                 </c:if>
             </div>
