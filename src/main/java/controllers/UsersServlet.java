@@ -40,7 +40,6 @@ public class UsersServlet extends HttpServlet {
         req.setAttribute(ServletUtils.FOLLOWED_USERS, followedUsers);
         req.setAttribute(ServletUtils.NOT_FOLLOWED_USERS,  notFollowedUsers);
         req.setAttribute(ServletUtils.FOLLOWERS, followers);
-
-
+        req.getRequestDispatcher("/users.jsp").forward(req, resp);
     }
 }
